@@ -11,7 +11,7 @@ class CloudinaryUpload < Liquid::Tag
     #TODO: make sizes configurable
     sizes = [100, 200, 500, 700, 1000]
 
-    settings = settings_defaults.merge(site.config["cloudinary_uploads"])
+    settings = site.config["cloudinary_uploads"]
     if settings["cloud_name"] == ""
       Jekyll.logger.abort_with("[Cloudinary Uploads]", "You must set your cloud_name in _config.yml")
     end
