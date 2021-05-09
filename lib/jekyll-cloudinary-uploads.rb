@@ -71,12 +71,12 @@ class CloudinaryUpload < Liquid::Tag
 
     attr_string = html_attr.map { |a, v| "#{a}=\"#{v}\"" }.join(" ")
 
-    fallback_url = "https://res.cloudinary.com/#{settings["cloud_name"]}/image/uploads/#{image_src}"
+    fallback_url = "https://res.cloudinary.com/#{settings["cloud_name"]}/image/upload#{image_src}"
 
     srcset = []
 
     sizes.each do |size|
-      srcset << "https://res.cloudinary.com/#{settings["cloud_name"]}/image/uploads/c_limit,w_#{size}/#{image_src} #{size}w"
+      srcset << "https://res.cloudinary.com/#{settings["cloud_name"]}/image/upload/c_limit,w_#{size}/#{image_src} #{size}w"
     end
 
     srcset_string = srcset.join(",\n")
