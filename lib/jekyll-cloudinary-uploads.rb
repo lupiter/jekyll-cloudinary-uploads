@@ -40,7 +40,6 @@ class CloudinaryUpload < Liquid::Tag
     end
 
     image_src = markup[:image_src]
-    attributes = preset["attributes"]
 
     # Process attributes
     html_attr = if markup[:html_attr]
