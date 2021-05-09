@@ -12,6 +12,9 @@ class CloudinaryUpload < Liquid::Tag
     sizes = [100, 200, 500, 700, 1000]
 
     site = context.registers[:site]
+    if site.config["cloudinary_uploads"].nil?
+      Jekyll.logger.abort_with("[Cloudinary]", "You must set your cloud_name in _config.yml")
+    end
 
     settings = site.config["cloudinary_uploads"]
     if settings["cloud_name"] == ""
@@ -23,7 +26,7 @@ class CloudinaryUpload < Liquid::Tag
 
     # Render any liquid variables in tag arguments and unescape template code
     rendered_markup = Liquid::Template
-      .parse(@markup)
+      .parse(@content)
       .render(context)
       .gsub(%r!\\\{\\\{|\\\{\\%!, '\{\{' => "{{", '\{\%' => "{%")
 
@@ -33,7 +36,7 @@ class CloudinaryUpload < Liquid::Tag
         .match(rendered_markup)
 
     unless markup
-      Jekyll.logger.abort_with("[Cloudinary Uploads]", "Can't read this tag: #{@markup}")
+      Jekyll.logger.abort_with("[Cloudinary Uploads]", "Can't read this tag: #{@content}")
     end
 
     image_src = markup[:image_src]
